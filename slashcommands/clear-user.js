@@ -72,7 +72,7 @@ module.exports = {
                         const inProgressEmbed = new Discord.EmbedBuilder()
                             .setColor("Blue")
                             .setDescription("**ℹ️ Suppression des messages en cours...**");
-                        await i.reply({ embeds: [inProgressEmbed] });
+                        await i.channel.send({ embeds: [inProgressEmbed] });
         
                         const channels = await message.guild.channels.cache;
                         if (!channels) return;
