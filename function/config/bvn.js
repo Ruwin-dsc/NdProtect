@@ -8,7 +8,7 @@ async function addrole(bot, message, msg, EmbedBienvenue, filter2) {
                     let collected = await message.channel.awaitMessages({ filter: filter2, max: 1, time: 30000, errors: ["time"]})
                     .then(async (collected) => {
                         if(collected.first().mentions.roles.first() || message.guild.roles.cache.get(collected.first().content)) {
-                            const role = collected.first().mentions.roles.first() ? collected.first().mentions.roles.first() : message.guild.roles.cache.get(collected.first())
+                            const role = collected.first().mentions.roles.first() ? collected.first().mentions.roles.first() : message.guild.roles.cache.get(collected.first().content)
                             await bot.db.query(`SELECT * FROM bienvenue WHERE guildId = "${message.guild.id}"`, async (err, req) => {
                             msg2.delete(), collected.first().delete()
                             const array = JSON.parse(req[0].bvnRole)
