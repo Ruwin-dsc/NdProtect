@@ -65,7 +65,7 @@ exports.run = async (bot, message, args) => {
                             component.data.disabled = true
                         })
                     })
-                    await interaction.update({ components: msg.components })
+                    await i.update({ components: msg.components })
                     const inProgressEmbed = new Discord.EmbedBuilder()
                         .setColor("Blue")
                         .setDescription("**ℹ️ Suppression des messages en cours...**");
