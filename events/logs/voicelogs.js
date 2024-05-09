@@ -26,7 +26,7 @@ module.exports = {
                 .setTitle(`Salon vocal rejoint`)
                 .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))
                 .setFooter({ text: `ID de l'utilisateur : ${member.id}`})
-            } else {
+            } else if(oldState.channel !== newState.channel) {
                 embed = new Discord.EmbedBuilder()
                 .setDescription(`${member} a changé de salon vocal.`)
                 .setColor("Blurple")
