@@ -101,7 +101,7 @@ module.exports = {
                     const embed2 = new Discord.EmbedBuilder()
                     .setColor('Red')
                     .setDescription(`❌ Vous n'avez pas les permissions d'utiliser ce menu, ou alors le délai d'exécution de la commande est dépassé.`)
-                    if(interaction.user.id !== message.user.id) return interaction.reply({ embeds: [embed2], ephemeral: true })
+                    if(interaction.user.id !== message.user.id) return interaction.reply({ embeds: [embed2], ephemeral: true, fetchReply: true })
                     if(interaction.customId == "confirm") {
                         msg.components.forEach((row) => {
                             row.components.forEach((component) => {
