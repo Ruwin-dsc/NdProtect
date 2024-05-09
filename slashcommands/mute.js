@@ -59,7 +59,7 @@ module.exports = {
             if(!duree && !duree.endsWith("s") && !duree.endsWith("m") && !duree.endsWith("d") && !duree.endsWith('h')) return message.reply({ embeds: [embed.setDescription(`**❌ Vous devez fournir une durée valide (entre 5 secondes et 28 jours).**`)]})
             if(!parseInt(ms(duree)) || ms(duree) > 2419200000) return message.reply({ embeds: [embed.setDescription(`**❌ Vous devez fournir une durée valide (entre 5 secondes et 28 jours).**`)]})
     
-            user.timeout(ms(duree), `[@${message.author.username}] ${reason}`);
+            user.timeout(ms(duree), `[@${message.user.username}] ${reason}`);
             message.reply({ embeds: [embed.setColor("Green").setDescription(`**✅ ${user} a été rendu muet pendant ${args.getString("duration")}.**`)]})
         }
     }
