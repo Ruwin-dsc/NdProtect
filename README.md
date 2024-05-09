@@ -37,5 +37,5 @@
 ### <a id="authors"></a>🕵️‍♂️ 〢 Authors
 - [Ruwin](https://github.com/Ruwin-dsc)
 
-Merci à .crackk de m'avoir aidé
+Merci à .crackk et snwenrs7 de m'avoir aidé
 ---
