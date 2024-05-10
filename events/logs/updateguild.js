@@ -18,6 +18,12 @@ module.exports = {
         if (oldGuild.systemChannel !== newGuild.systemChannel) {
             embed.addFields({ name: "Salon des messages système :", value: `> ${oldGuild.systemChannel || "Aucun"} ➔ ${newGuild.systemChannel || "Aucun"}`})
         }
+        if(oldGuild.premiumProgressBarEnabled !== newGuild.premiumProgressBarEnabled) {
+            embed.addFields({ name: "Barre des boosts :", value: `> ${oldGuild.premiumProgressBarEnabled == true ? "Activée" : "Désactivée"} ➔ ${newGuild.premiumProgressBarEnabled == true ? "Activée" : "Désactivée"}`})
+        }
+        if (oldGuild.defaultMessageNotifications !== newGuild.defaultMessageNotifications) {
+            embed.addFields({ name: "Notification par défaut :", value: `> ${oldGuild.defaultMessageNotifications == 0 ? "Tous les messages" : "@mentions seulement"} ➔ ${newGuild.defaultMessageNotifications == 0 ? "Tous les messages" : "@mentions seulement"}`})
+        }
         const channel2 = newGuild.channels.cache.get(req[0].channelGuild)
         if(channel2) channel2.send({ embeds: [embed]})
     })
