@@ -8,7 +8,7 @@ const regexDiscord = /(https:\/\/)?(www\.)?(discord\.gg|discord\.me|discordapp\.
 module.exports = {
   name: "messageCreate", 
   async execute(message, bot) {
-    if(!message.guild)
+    if(!message.guild) return
     if(message.content.match(regexLink)) {
     bot.db.query(`SELECT * FROM bot WHERE guildId = "${message.guild.id}"`, async (err, req) => {
     const whitelist = JSON.parse(req[0].whitelist)
