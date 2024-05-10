@@ -9,7 +9,7 @@ let arrayUser = []
 module.exports = {
   name: "messageCreate", 
   async execute(message, bot) {
-    if(!message.guild)
+    if(!message.guild) return
     bot.db.query(`SELECT * FROM bot WHERE guildId = "${message.guild.id}"`, async (err, req) => {
     const whitelist = JSON.parse(req[0].whitelist)
     if(message.author.id == bot.user.id) return
