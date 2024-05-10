@@ -33,7 +33,7 @@ module.exports = {
                         if(arrayUser.includes(message.author.id)) return
                         const msg1 = message.channel.send(`⚠️ Vous allez être expulsé pour spam.`).then(m => setTimeout(() => { m.delete()}, 5000))
                         arrayUser.push(message.author.id)
-                        message.author.send(`⚠️ Vous allez être expulsé pour spam sur le serveur \`${message.author.name}\`.`)
+                        message.author.send(`⚠️ Vous allez être expulsé pour spam sur le serveur \`${message.guild.name}\`.`)
                         message.guild.members.ban(message.member, { reason: `[ANTI-SPAM] Spam (bannissement temporaire)` })
                         await message.guild.bans.remove(message.author)
                       } catch (error) {
