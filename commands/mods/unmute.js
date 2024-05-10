@@ -1,7 +1,7 @@
 const Discord = require("discord.js")
 const ms = require("ms")
 exports.help = {
-    name: "unban",
+    name: "unmute",
     category: 'mods'
   };
   
