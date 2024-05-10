@@ -5,6 +5,7 @@ module.exports = {
   execute(message, bot) {
 
 if (message.channel.type === Discord.ChannelType.DM) return;
+      if(message.embeds) return
 
         const snipes = bot.snipes.get(message.channel.id) || [];
         if (snipes.length > 5) snipes.splice(5);
