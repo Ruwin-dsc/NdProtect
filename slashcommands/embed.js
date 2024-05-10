@@ -95,6 +95,10 @@ module.exports = {
         const collector = msg1.createMessageComponentCollector();
 
         collector.on("collect", async (i) => {
+            const embed2 = new Discord.EmbedBuilder()
+            .setColor('Red')
+            .setDescription(`❌ Vous n'avez pas les permissions d'utiliser ce menu, ou alors le délai d'exécution de la commande est dépassé.`)
+            if (i.user.id !== message.author.id) return i.reply({ embeds: [embed2], ephemeral: true })
             if (i.customId === "select") {
                 const selectedValue = i.values[0];
                 if (selectedValue === "titre") {
