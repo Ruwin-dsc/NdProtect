@@ -3,7 +3,7 @@ const config = require('../../config.json')
 module.exports = {
   name: "guildMemberUpdate",
   async execute(member, newMember, bot) {
-    if (newMember.communicationDisabledUntilTimestamp) {
+    if (member.communicationDisabledUntilTimestamp !== newMember.communicationDisabledUntilTimestamp) {
     bot.db.query(`SELECT * FROM logs WHERE guildId = "${member.guild.id}"`, async (err, req) => {
     if(req.length < 1) return
 
@@ -25,7 +25,7 @@ module.exports = {
     const channel = member.guild.channels.cache.get(req[0].channelMods)
     if(channel) channel.send({ embeds: [embed]})
 })
-  } else if(member.communicationDisabledUntilTimestamp !== newMember.communicationDisabledUntilTimestamp) {
+  } else if(!newMember.communicationDisabledUntilTimestamp && member.communicationDisabledUntilTimestamp !== newMember.communicationDisabledUntilTimestamp) {
     bot.db.query(`SELECT * FROM logs WHERE guildId = "${member.guild.id}"`, async (err, req) => {
       if(req.length < 1) return
     const action = await member.guild.fetchAuditLogs({ limit: 1, type: Discord.AuditLogEvent.MemberUpdate }).then(audit => audit.entries.first());
@@ -48,4 +48,6 @@ module.exports = {
     })    
   } 
 }
+}
+
 }
