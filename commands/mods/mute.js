@@ -29,8 +29,7 @@ exports.run = async (bot, message, args) => {
         .setColor("Red")
         
         if(message.author.id == user.id) return message.reply({ embeds: [embed.setDescription("**❌ Vous ne pouvez pas vous rendre muet vous-même**")]})
-        if(message.guild.ownerId == user.id) return message.reply({ embeds: [embed.setDescription(`**❌ Je n'ai pas les permissions de rendre muet ${user} ?.**`)]})
-        if (!user.bannable || bot.user.id == user.id)  return message.reply({ embeds: [embed.setDescription(`**❌ Je n'ai pas les permissions de rendre muet ${user} ?.**`)]})
+        if(message.guild.ownerId == user.id) return message.reply({ embeds: [embed.setDescription(`**❌ Je n'ai pas les permissions de rendre muet ${user}.**`)]})
         if (user.roles.highest.position >= message.member.roles.highest.position) return message.reply({ embeds: [embed.setDescription(`**❌ Vous n'avez pas les permissions de rendre muet ${user} ? car cet utilisateur est situé au dessus de vous dans la hiérarchie des rôles.**`)]})
 
         let duree = args[1]
