@@ -7,6 +7,7 @@ exports.help = {
 };
 
 exports.run = async (bot, message, args) => {
+    message.user = message.author
     bot.db.query(`SELECT * FROM bot WHERE guildId = "${message.guild.id}"`, async (err, req) => {
         const whitelist = JSON.parse(req[0].whitelist)
     

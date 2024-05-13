@@ -15,12 +15,12 @@ exports.run = async (bot, message, args) => {
         return message.reply({ embeds: [embed] })
     } else {
         try {
-        await channel.delete();
-        const channel = await message.channel.clone({ reason: `Channel recréé par ${message.author.username}` });
+        const channel2 = await message.channel.clone({ reason: `Channel recréé par ${message.author.username}` });
+        await message.channel.delete();
         const embed = new Discord.EmbedBuilder()
         .setColor("White")
         .setDescription("**☣️ Salon recréé.***")
-        await channel.send({ embeds: [embed]}).then((m) => setTimeout(() => m.delete(), 5000))
+        await channel2.send({ embeds: [embed]}).then((m) => setTimeout(() => m.delete(), 5000))
         } catch (e) {
             const embed = new Discord.EmbedBuilder()
             .setColor("Red")

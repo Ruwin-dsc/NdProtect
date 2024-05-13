@@ -4,7 +4,8 @@ module.exports = {
   name: "messageDelete",
   execute(message, bot) {
 
-if (message.channel.type === Discord.ChannelType.DM) return;
+if (message.channel.type === Discord.ChannelType.DM) return ;
+      if(message.embeds.length !== 0) return 
 
         const snipes = bot.snipes.get(message.channel.id) || [];
         if (snipes.length > 5) snipes.splice(5);

@@ -13,12 +13,12 @@ module.exports = {
         const embed = new Discord.EmbedBuilder()
         .setDescription(`${newMember} est un nouveau booster sur le serveur ! ${bot.emoji.boost}`)
         .setColor("#f47fff")
-        .setAuthor({ name: `${newMember.guild.members.cache.get(newMember.id).username} vient de booster le serveur !`, iconURL: newMember.guild.members.cache.get(newMember.id).displayAvatarURL({ dynamic: true }), url: "https://discord.gg/3PA53mfwSv" })
+        .setAuthor({ name: `${newMember.guild.members.cache.get(newMember.id).user.username} vient de booster le serveur !`, iconURL: newMember.guild.members.cache.get(newMember.id).displayAvatarURL({ dynamic: true }), url: "https://discord.gg/3PA53mfwSv" })
         if (!oldBoostDate && newBoostDate) channel.send({ embeds: [embed]})
         const embed2 = new Discord.EmbedBuilder()
         .setDescription(`${newMember} est booster sur le serveur depuis le <t:${parseInt(newMember.premiumSinceTimestamp / 1000)}:f> ! ${bot.emoji.boost}`)
         .setColor("#f47fff")
-        .setAuthor({ name: `${newMember.guild.members.cache.get(newMember.id).username} vient de booster le serveur !`, iconURL: newMember.guild.members.cache.get(newMember.id).displayAvatarURL({ dynamic: true }), url: "https://discord.gg/3PA53mfwSv" })
+        .setAuthor({ name: `${newMember.guild.members.cache.get(newMember.id).user.username} vient de booster le serveur !`, iconURL: newMember.guild.members.cache.get(newMember.id).displayAvatarURL({ dynamic: true }), url: "https://discord.gg/3PA53mfwSv" })
         if(oldBoostDate && newBoostDate && newBoostDate > oldBoostDate) channel.send({ embeds: [embed2]})
         
 

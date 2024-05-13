@@ -112,12 +112,12 @@ exports.run = async (bot, message, args) => {
                 const inProgressEmbed = new EmbedBuilder()
                     .setColor("Blue")
                     .setDescription(`**ℹ️ Expulsion des ${membersToPrune.size} membres en cours...**`);
-                i.reply({ embeds: [inProgressEmbed] });
+                await i.reply({ embeds: [inProgressEmbed] });
 
                 const successEmbed = new EmbedBuilder()
                     .setColor("Green")
                     .setDescription(`**✅ Expulsion des ${membersToPrune.size} membres terminée.**`);
-                    i.channel.send({ embeds: [successEmbed], ephemeral: false });
+                await i.channel.send({ embeds: [successEmbed], ephemeral: false });
 
             } else if (i.customId === 'cancel_button') {
                 const cancelledEmbed = new EmbedBuilder()

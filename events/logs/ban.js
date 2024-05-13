@@ -7,10 +7,10 @@ module.exports = {
     if(req.length < 1) return
 
     const action = await member.guild.fetchAuditLogs({ limit: 1, type: Discord.AuditLogEvent.MemberBanAdd }).then(audit => audit.entries.first());
-    if (!action || action.executor.id === bot.user.id || action.executor.id === member.guild.ownerId) return;
+    if (!action || action.executor.id === bot.user.id) return ;
 
     const embed = new Discord.EmbedBuilder()
-    .setDescription(`${member} a été banni du serveur.`)
+    .setDescription(`<@${member.user.id}> a été banni du serveur.`)
     .setFooter({ text: `ID de l'utilisateur : ${member.user.id}`})
     .setTitle("Bannissement")
     .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

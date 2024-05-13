@@ -26,11 +26,11 @@ exports.run = async (bot, message, args) => {
 
         const embed = new Discord.EmbedBuilder()
         .setColor("Red")
-        
+        let e = "a"
         if(message.author.id == user.id) return message.reply({ embeds: [embed.setDescription("**❌ Vous ne pouvez pas vous bannir vous-même**")]})
         if(message.guild.ownerId == user.id) return message.reply({ embeds: [embed.setDescription(`**❌ Je n'ai pas les permissions de bannir ${user} ?.**`)]})
-        if (!user.bannable || bot.user.id == user.id)  return message.reply({ embeds: [embed.setDescription(`**❌ Je n'ai pas les permissions de bannir ${user} ?.**`)]})
-        if (user.roles.highest.position >= message.member.roles.highest.position) return message.reply({ embeds: [embed.setDescription(`**❌ Vous n'avez pas les permissions de bannir ${user} ? car cet utilisateur est situé au dessus de vous dans la hiérarchie des rôles.**`)]})
+        if ( bot.user.id == user.id) return message.reply({ embeds: [embed.setDescription(`**❌ Je n'ai pas les permissions de bannir ${user}.**`)]})
+        if (message.author.id !== message.guild.ownerId && user.roles.highest.position >= message.member.roles.highest.position) return message.reply({ embeds: [embed.setDescription(`**❌ Vous n'avez pas les permissions de bannir ${user} ? car cet utilisateur est situé au dessus de vous dans la hiérarchie des rôles.**`)]})
 
         message.guild.members.ban(user, { reason: reason })
         message.reply({ embeds: [embed.setColor("Green").setDescription(`**✅ ${user} a été banni du serveur.**`).setImage("https://media.discordapp.net/attachments/1170288145871413318/1237412141724860447/cheh.gif?ex=663b8d5c&is=663a3bdc&hm=4d31889ffbcc83386f08844110c58dfb09747d3da93482f55499f8cf56c3cf38&=&width=1480&height=832")]})

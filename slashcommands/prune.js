@@ -6,6 +6,15 @@ module.exports = {
     description: 'Expulser les membres ayant rejoint récemment.',
     permission: "Aucune",
     dm: false,
+    options: [
+        {
+          type: "string",
+          name: "delay",
+          description: "Délai a partir duquel les membres seront expulsés.",
+          required: true,
+          autocomplete: false,
+        },
+      ],
     async run(bot, message, args) {
         bot.db.query(`SELECT * FROM bot WHERE guildId = "${message.guild.id}"`, async (err, req) => {
             const whitelist = JSON.parse(req[0].whitelist)
@@ -18,7 +27,7 @@ module.exports = {
                 return message.reply({ embeds: [embedError] });
             }
     
-            const delai = args[0];
+            const delai = args.getString("delay");
     
             const isValidDelay = /^([1-9]|[1-9][0-9]+)(m|h|d)$/.test(delai);
             if (!isValidDelay) {
@@ -110,12 +119,12 @@ module.exports = {
                     const inProgressEmbed = new EmbedBuilder()
                         .setColor("Blue")
                         .setDescription(`**ℹ️ Expulsion des ${membersToPrune.size} membres en cours...**`);
-                    i.reply({ embeds: [inProgressEmbed] });
+                    await i.reply({ embeds: [inProgressEmbed] });
     
                     const successEmbed = new EmbedBuilder()
                         .setColor("Green")
                         .setDescription(`**✅ Expulsion des ${membersToPrune.size} membres terminée.**`);
-                        i.channel.send({ embeds: [successEmbed], ephemeral: false });
+                    await i.channel.send({ embeds: [successEmbed], ephemeral: false });
     
                 } else if (i.customId === 'cancel_button') {
                     const cancelledEmbed = new EmbedBuilder()

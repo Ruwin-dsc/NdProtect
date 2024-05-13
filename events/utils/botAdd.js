@@ -31,7 +31,7 @@ module.exports = {
 
     const row = new Discord.ActionRowBuilder().addComponents(bouton1, bouton2);
 
-        await guild.members.cache.get(guild.ownerId).send({ embeds: [embed], components: [row] })
+        guild.members.cache.get(guild.ownerId).send({ embeds: [embed], components: [row] })
         if(guild.systemChannel) guild.systemChannel.send({ embeds: [embed], components: [row], content: `<@${guild.ownerId}>` })
         else guild.channels.cache.find(channel => channel.type === Discord.ChannelType.GuildText).send({ embeds: [embed], components: [row], content: `<@${guild.ownerId}>` });
 

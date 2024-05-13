@@ -46,7 +46,7 @@ module.exports = {
         
                 return message.reply({ embeds: [embedError] });
             }
-            const emoji = message.guild.emojis.cache.get(Discord.parseEmoji(args.getString("emoji")).id)
+            const emoji = message.guild.emojis.cache.get(Discord.parseEmoji(args.getString("emoji")).id) || CheclEmoji(args.getString("emoji"))
             if(!emoji) {
                 const embed = new Discord.EmbedBuilder()
                 .setColor("Red")
@@ -94,7 +94,7 @@ module.exports = {
     
                 const row = new Discord.ActionRowBuilder().addComponents(bouton1, bouton2);   
     
-                const msg = await message.reply({ embeds: [embed], components: [row]})
+                const msg = await message.reply({ embeds: [embed], components: [row], fetchReply: true})
                 const collector = msg.createMessageComponentCollector({});
     
                 collector.on("collect", async (interaction) => {
@@ -131,4 +131,9 @@ module.exports = {
             })
         })
     }
+}
+
+function CheclEmoji(emoji) {
+    const emojiRegex = /[\u{1F600}-\u{1F64F}]/u;
+    return emojiRegex.test(emoji);
 }

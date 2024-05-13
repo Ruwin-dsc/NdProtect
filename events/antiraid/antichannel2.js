@@ -5,6 +5,7 @@ module.exports = {
   name: "channelCreate",
   async execute(channel, bot) {
     bot.db.query(`SELECT * FROM bot WHERE guildId = "${channel.guild.id}"`, async (err, req) => {
+      if(req.length < 1) return
       const whitelist = JSON.parse(req[0].whitelist)
       bot.db.query(`SELECT * FROM antiraid WHERE guildId = "${channel.guild.id}"`, async (err, req) => {
           if (err || req.length < 1 || req[0].antichannel == "off") return;;

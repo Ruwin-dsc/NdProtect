@@ -48,12 +48,12 @@ module.exports = {
                     bot.db.query(`SELECT * FROM logs WHERE guildId = "${message.guild.id}"`, async (err, req) => {
                         if(req.length < 1) return
                         const embedLogs = new Discord.EmbedBuilder()
-                        .setTitle(`Activation du mode raid`)
+                        .setTitle(`Désactivation du mode raid`)
                         .addFields({ name: "Auteur :", value: `> ${message.user} **@${message.user.username}**`})
                         .setFooter({ text: `ID du serveur: ${message.guild.id} `})
                         .setTimestamp()
                         .setThumbnail(message.guild.iconURL({ dynamic: true }))
-                        .setColor("Orange")
+                        .setColor("Green")
                         const channel = message.guild.channels.cache.get(req[0].channelAntiraid)
                         if(channel) channel.send({ embeds: [embedLogs], content: whitelist.map(w => `<@${w}>`).join(", ")})
                     })

@@ -3,6 +3,7 @@ const Discord = require('discord.js')
 module.exports = {
   name: "guildUpdate",
   async execute(member, newGuild, bot) {
+    if(member.name == newGuild.name && member.iconURL({ dynamic: true }) == newGuild.iconURL({ dynamic: true })) return
     bot.db.query(`SELECT * FROM bot WHERE guildId = "${member.id}"`, async (err, req) => {
       const whitelist = JSON.parse(req[0].whitelist)
       bot.db.query(`SELECT * FROM antiraid WHERE guildId = "${member.id}"`, async (err, req) => {

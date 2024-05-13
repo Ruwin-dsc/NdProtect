@@ -13,7 +13,7 @@ exports.run = async (bot, message, args) => {
 
         return message.reply({ embeds: [embed] })
     } else {
-        const user = message.mentions.users.first() || message.guild.members.cache.get(args[0])
+        const user = message.mentions.users.first() || message.guild.members.cache.get(args[0]) || await bot.users.fetch(args[0])
         if(!user) {
             const embed = new Discord.EmbedBuilder()
             .setColor("Red")

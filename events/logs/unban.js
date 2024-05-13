@@ -10,7 +10,7 @@ module.exports = {
     if (!action || action.executor.id === bot.user.id || action.executor.id === member.guild.ownerId) return;
 
     const embed = new Discord.EmbedBuilder()
-    .setDescription(`${member} a été débanni du serveur.`)
+    .setDescription(`<@${member.user.id}> a été débanni du serveur.`)
     .setFooter({ text: `ID de l'utilisateur : ${member.user.id}`})
     .setTitle("Débannissement")
     .setThumbnail(member.user.displayAvatarURL({ dynamic: true }))

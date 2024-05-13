@@ -65,11 +65,11 @@ exports.run = async (bot, message, args) => {
                             component.data.disabled = true
                         })
                     })
-                    await interaction.update({ components: msg.components })
+                    await i.update({ components: msg.components })
                     const inProgressEmbed = new Discord.EmbedBuilder()
                         .setColor("Blue")
                         .setDescription("**ℹ️ Suppression des messages en cours...**");
-                    await i.reply({ embeds: [inProgressEmbed] });
+                    await i.channel.send({ embeds: [inProgressEmbed] });
     
                     const channels = await message.guild.channels.cache;
                     if (!channels) return;
