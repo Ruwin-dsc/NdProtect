@@ -233,7 +233,7 @@ module.exports = {
                         embedtest.setTimestamp(null);
                     }
 
-                    await message.reply({ embeds: [embed, embedtest], components: [row] });
+                    await msg1.edit({ embeds: [embed, embedtest], components: [row, row1] })
                 } else if (selectedValue === "plus-champ") {
                     await i.deferUpdate()
                     const newFieldMsg = await i.channel.send({ embeds: [new Discord.EmbedBuilder().setDescription("Quel est le titre du nouveau champ ?").setColor(color)] });

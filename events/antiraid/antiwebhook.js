@@ -1,5 +1,6 @@
 const Discord = require('discord.js')
 
+const messageUser = []
 module.exports = {
   name: "webhookUpdate",
   async execute(channel, bot) {
@@ -14,7 +15,9 @@ module.exports = {
         channel.guild.fetchWebhooks().then((webhooks) => {
           webhooks.forEach((wh) => wh.delete({ reason: "AntiWebhook by NdProtect /uhq" }));
         });
-        action.executor.send(`⚠️ Vous n'êtes pas autorisé à créer des webhooks sur le serveur \`${channel.guild.name}\`.`)
+        if(!messageUser.includes(action.executor.id)) action.executor.send(`⚠️ Vous n'êtes pas autorisé à créer des webhooks sur le serveur \`${channel.guild.name}\`.`)
+        else return 
+        messageUser.push(action.executor.id)  
       })
     })
   }

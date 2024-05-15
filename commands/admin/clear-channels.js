@@ -16,7 +16,7 @@ exports.run = async (bot, message, args) => {
     if(message.author.id !== message.guild.ownerId && !whitelist.includes(message.author.id)) {
         const embedError = new Discord.EmbedBuilder()
         .setColor("#ff0000")
-        .setDescription(`**❌ Je n'ai pas la permission de supprimer les salons.**`);
+        .setDescription(`**❌ Vous devez être le propriétaire du serveur pour exécuter cette commande.**`);
 
         return message.reply({ embeds: [embedError] });
     }

@@ -5,6 +5,7 @@ module.exports = {
   async execute(message, bot) {
     if(!message.author) return
     if(message.content == "") return
+    if(message.author.id == bot.user.id) return
     bot.db.query(`SELECT * FROM logs WHERE guildId = "${message.guild.id}"`, async (err, req) => {
     if(req.length < 1) return
 

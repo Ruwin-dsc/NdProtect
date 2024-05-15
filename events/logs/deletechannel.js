@@ -8,7 +8,7 @@ module.exports = {
         .setColor("Red")
         .setTimestamp()
         .setTitle(`Suppression d'un salon`)
-        .setDescription(`Salon supprimé : ${role} \`${role.name}\`.`)
+        .setDescription(`Salon supprimé : \`${role.name}\`.`)
         .setFooter({ text: `ID du salon : ${role.id}` })
         const channel2 = role.guild.channels.cache.get(req[0].channelGuild)
         if(channel2) channel2.send({ embeds: [embed]})

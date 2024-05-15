@@ -3,7 +3,7 @@ const { EmbedBuilder, ButtonBuilder, ActionRowBuilder, ButtonStyle } = require('
 exports.help = {
     name: "role-all",
     category: 'admin',
-    aliases: ["massiverole", "role"]
+    aliases: ["massiverole", "roleall"]
 };
 
 exports.run = async (bot, message, args) => {
@@ -37,6 +37,12 @@ exports.run = async (bot, message, args) => {
         const embed = new Discord.EmbedBuilder()
         .setColor("Red")
         .setDescription(`**❌ Je ne peux pas attribuer le rôle ${rôle} car il est situé au dessus de moi dans la hiérarchie des rôles.**`)
+        return message.reply({ embeds: [embed]})
+    }
+    if(!rôle.editable) {
+        const embed = new Discord.EmbedBuilder()
+        .setColor("Red")
+        .setDescription(`**❌ Je ne peux pas attribuer le rôle ${rôle} car c'est un rôle d'intégration.**`)
         return message.reply({ embeds: [embed]})
     }
  
