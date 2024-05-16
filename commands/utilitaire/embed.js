@@ -284,7 +284,19 @@ exports.run = async (bot, message, args) => {
                     await newFieldMsg.delete();
                 } else if (selectedValue === "moins-champ") {
                     await i.deferUpdate()
-                    i.reply({ content: "désolée j'avais la flemme \n Serveur: https://discord.gg/SjskBsNr", ephemeral: true })
+                const msgQuestion = await message.channel.send({ embeds: [new Discord.EmbedBuilder().setDescription("QQuel champ voulez-vous supprimer ? (un numéro)").setColor("White")] });
+                message.channel.awaitMessages({ filter, max: 1, time: 60000, errors: ["time"] }).then(async (collected) => {
+                    if (!embedtest.data.fields) return collected.first().delete(), msgQuestion.delete()
+                    if (isNaN(collected.first().content)) return collected.first().delete(), msgQuestion.delete()
+                    if (collected.first().content > embedtest.data?.fields) return collected.first().delete(), msgQuestion.delete()
+
+                    collected.first().delete(), msgQuestion.delete()
+                    
+                    embedtest.spliceFields(Number(collected.first().content) - 1, 1)
+                    msg1.edit({ embeds: [embedtest] })
+                }).catch(e => {
+                    msgQuestion.delete()
+                })
                 }
             } else if (i.isButton()) {
                 const customId = i.customId;
