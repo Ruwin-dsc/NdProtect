@@ -14,11 +14,12 @@ module.exports = {
     bot.db.query(`SELECT * FROM bot WHERE guildId = "${message.guild.id}"`, async (err, req) => {
     const whitelist = JSON.parse(req[0].whitelist)
     if(message.author.id == bot.user.id) return
+      if(message.author.id == message.guild.ownerId) return
     if(whitelist.includes(message.author.id)) return
         bot.db.query(`SELECT * FROM antiraid WHERE guildId = "${message.guild.id}"`, async (err, req) => {
             if(req.length < 1 || req[0].antilink == "off") return
             const antilinkchannel = JSON.parse(req[0].antilinkchannel)
-            if(!antilinkchannel.includes(message.channel.id)) return
+            if(antilinkchannel.includes(message.channel.id)) return
             message.delete()
             message.author.send(`⚠️ Vous n'êtes pas autorisé à envoyer des liens dans le salon ${message.channel}.`)
         })
@@ -27,11 +28,12 @@ module.exports = {
         bot.db.query(`SELECT * FROM bot WHERE guildId = "${message.guild.id}"`, async (err, req) => {
             const whitelist = JSON.parse(req[0].whitelist)
             if(message.author.id == bot.user.id) return
+          if(message.author.id == message.guild.ownerId) return
             if(whitelist.includes(message.author.id)) return
                 bot.db.query(`SELECT * FROM antiraid WHERE guildId = "${message.guild.id}"`, async (err, req) => {
                     if(req.length < 1 || req[0].antiinvite == "off") return
                     const antilinkchannel = JSON.parse(req[0].antiinvitechannel)
-                    if(!antilinkchannel.includes(message.channel.id)) return
+                    if(antilinkchannel.includes(message.channel.id)) return
                     message.delete()
                     message.author.send(`⚠️ Vous n'êtes pas autorisé à envoyer des invitations dans le salon ${message.channel}.`)
                 })
