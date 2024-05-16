@@ -10,6 +10,7 @@ module.exports = {
   name: "messageCreate", 
   async execute(message, bot) {
     if(!message.guild) return
+    if(message.author.id == message.guild.ownerId) return
     bot.db.query(`SELECT * FROM bot WHERE guildId = "${message.guild.id}"`, async (err, req) => {
       if(req.length < 1) return
     const whitelist = JSON.parse(req[0].whitelist)
