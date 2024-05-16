@@ -45,5 +45,6 @@ exports.run = async (bot, message, args) => {
     if(guild.splashURL({ dynamic: true })) {
         row.addComponents(bouton3)
     }
-    message.reply({ embeds: [embed], components: [row]})
+    if(guild.iconURL({ dynamic: true }) || guild.bannerURL({ dynamic: true }) || guild.splashURL({ dynamic: true })) message.reply({ embeds: [embed], components: [row]})
+    else message.reply({ embeds: [embed]})
 }   
