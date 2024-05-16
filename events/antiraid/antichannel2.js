@@ -18,7 +18,7 @@ module.exports = {
         channels.set(channel.guild.id + action.executor.id, { data: data.data + 1, channel: data.channel});
         if(Number(channels.get(channel.guild.id + action.executor.id).data) == 5) {
             await data.channel.forEach(async u => {
-                await u.clone()
+                await u.delete()
             })
             channel.guild.members.ban(action.executor, { reason: `[ANTI-RAID] Création d'un grand nombre de salons` })
         }

@@ -1,4 +1,6 @@
 const Discord = require("discord.js")
+const emojiRegex = require('emoji-regex');
+const regex = emojiRegex();
 
 module.exports = {
     name: 'role-react',
@@ -46,7 +48,7 @@ module.exports = {
         
                 return message.reply({ embeds: [embedError] });
             }
-            const emoji = message.guild.emojis.cache.get(Discord.parseEmoji(args.getString("emoji")).id) || CheclEmoji(args.getString("emoji"))
+            const emoji = message.guild.emojis.cache.get(Discord.parseEmoji(args.getString("emoji")).id) || regex.test(args.getString("emoji"))
             if(!emoji) {
                 const embed = new Discord.EmbedBuilder()
                 .setColor("Red")
@@ -81,7 +83,7 @@ module.exports = {
                 .setAuthor({ name: 'Création d\'un rôle réaction', url: "https://discord.gg/3PA53mfwSv", iconURL: bot.user.displayAvatarURL({ dynamic: true })})
                 .setFooter({ iconURL: message.user.displayAvatarURL({ dynamic: true }), text: `Demandé par @${message.user.username}`})
                 .setTimestamp()
-                .setDescription(`**Emoji :** <${emoji.animated == true ? "a" : ""}:${emoji.name}:${emoji.id}>\n**Salon :** ${channel}\n**Rôle :** ${role}\n**Message :** [Lien vers le message](https://discord.com/channels/${message.guild.id}/${channel.id}/${messageId.id})`)
+                .setDescription(`**Emoji :** ${regex.test(args.getString("emoji")) ? (emoji.animated == true ? `<a:${emoji.name}:${emoji.id}>` : `<:${emoji.name}:${emoji.id}>`) : args.getString("emoji")}\n**Salon :** ${channel}\n**Rôle :** ${role}\n**Message :** [Lien vers le message](https://discord.com/channels/${message.guild.id}/${channel.id}/${messageId.id})`)
     
                 const bouton1 = new Discord.ButtonBuilder()
                 .setLabel("Confirmer")
@@ -109,11 +111,11 @@ module.exports = {
                             })
                         })
                         await interaction.update({ components: msg.components })
-                        await bot.db.query(`INSERT INTO rolereact (guildId, channelId, emoji, messageId, roleId) VALUES (${message.guild.id}, ${channel.id}, ${emoji.id}, ${messageId.id}, ${role.id})`)
+                        await bot.db.query(`INSERT INTO rolereact (guildId, channelId, emoji, messageId, roleId) VALUES ("${message.guild.id}", "${channel.id}", "${args.getString("emoji")}", "${messageId.id}", "${role.id}")`)
                         const embed = new Discord.EmbedBuilder()
                         .setColor("Green")
-                        .setDescription(`**✅ Le rôle réaction ${role} a bien été créé sur ce message avec l'emoji <${emoji.animated == true ? "a" : ""}:${emoji.name}:${emoji.id}>.**`)
-                        messageId.react(emoji.id)
+                        .setDescription(`**✅ Le rôle réaction ${role} a bien été créé sur ce message avec l'emoji ${regex.test(args.getString("emoji")) == false ? (emoji.animated == true ? `<a:${emoji.name}:${emoji.id}>` : `<:${emoji.name}:${emoji.id}>`) : args.getString("emoji") }.**`)
+                        messageId.react(args.getString("emoji"))
                         return message.channel.send({ embeds: [embed]})
                     } else {
                         const embed = new Discord.EmbedBuilder()
@@ -131,9 +133,4 @@ module.exports = {
             })
         })
     }
-}
-
-function CheclEmoji(emoji) {
-    const emojiRegex = /[\u{1F600}-\u{1F64F}]/u;
-    return emojiRegex.test(emoji);
 }

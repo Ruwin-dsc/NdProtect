@@ -7,6 +7,7 @@ exports.help = {
   };
   
 exports.run = async (bot, message, args) => { 
+    let time = "a"
     message.user = message.author
     if (!message.member.permissions.has(Discord.PermissionsBitField.Flags.ManageChannels)) {
         const embed = new Discord.EmbedBuilder()
@@ -25,7 +26,7 @@ exports.run = async (bot, message, args) => {
             .setTimestamp()
         	.setColor("White")
 
-        const embedtest = new Discord.EmbedBuilder()
+        let embedtest = new Discord.EmbedBuilder()
             .setDescription("Description par défaut")
 
         const select = new Discord.StringSelectMenuBuilder()
@@ -102,12 +103,25 @@ exports.run = async (bot, message, args) => {
 
                     if (response && response.first()) {
                         const newTitle = response.first().content.trim();
-                        embedtest.setTitle(newTitle);
+                        const newTitleMsg2 = await i.channel.send({ embeds: [new Discord.EmbedBuilder().setDescription("**Quel lien voulez-vous ouvrir en cliquant sur le titre ?**").setColor(color)] });
+                        const response2 = await i.channel.awaitMessages({ filter, max: 1, time: 60000 });
+                        if (response2 && response2.first()) {
+                        try {
+                            const newTitle2 = response2.first().content.trim();
+                            embedtest.setTitle(newTitle);
+                            embedtest.setURL(newTitle2)
+                            await msg1.edit({ embeds: [embed, embedtest], components: [row, row1] })
+                        } catch { 
+                            embedtest.setTitle(newTitle);
+                            await msg1.edit({ embeds: [embed, embedtest], components: [row, row1] })
+                        }
 
-                        await msg1.edit({ embeds: [embed, embedtest], components: [row, row1] })
 
                         await response.first().delete();
+                        await response2.first().delete();
                         await newTitleMsg.delete();
+                        await newTitleMsg2.delete();
+                        }
                     }
                 } else if (selectedValue === "desc") {
                     await i.deferUpdate()
@@ -182,7 +196,13 @@ exports.run = async (bot, message, args) => {
 
                     if (response && response.first()) {
                         const newimage = response.first().content.trim();
+                        try {
                         embedtest.setImage(newimage);
+                        } catch(e) {
+                            await response.first().delete();
+                            await newimagemsg.delete();
+                            await msg1.edit({ embeds: [embed, embedtest], components: [row, row1] })
+                        }
 
                         await msg1.edit({ embeds: [embed, embedtest], components: [row, row1] })
 
@@ -217,12 +237,15 @@ exports.run = async (bot, message, args) => {
                     }
                 } else if (selectedValue === "date") {
                     await i.deferUpdate()
-                    const time = embedtest.setTimestamp !== null;
 
-                    if (time) {
+                    if (time !== null) {
                         embedtest.setTimestamp();
+                        time = null
                     } else {
-                        embedtest.setTimestamp(null);
+                        const json = embedtest
+                        delete json.data.timestamp
+                        embedtest = json
+                        time = 'a'
                     }
 
                     await msg1.edit({ embeds: [embed, embedtest], components: [row, row1] })

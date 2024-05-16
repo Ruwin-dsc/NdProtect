@@ -41,7 +41,7 @@ module.exports = {
             return message.reply({ embeds: [embed]})
         }
     
-        if (rôle.position >= message.guild.members.cache.get(bot.user.id).roles.highest.position) {
+        if (message.user.id !== message.guild.ownerId && rôle.position >= message.guild.members.cache.get(bot.user.id).roles.highest.position) {
             const embed = new Discord.EmbedBuilder()
             .setColor("Red")
             .setDescription(`**❌ Je ne peux pas attribuer le rôle ${rôle} car il est situé au dessus de moi dans la hiérarchie des rôles.**`)

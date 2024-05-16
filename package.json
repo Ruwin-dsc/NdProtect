@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "discord.js": "^14.15.2",
+    "emoji-regex": "^10.3.0",
     "fs": "^0.0.1-security",
     "glob": "^10.3.12",
     "ms": "^2.1.3",

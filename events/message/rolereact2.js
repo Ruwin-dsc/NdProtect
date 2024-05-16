@@ -1,16 +1,21 @@
 const Discord = require("discord.js");
-const config = require('../../config.json')
+const emojiRegex = require('emoji-regex');
+const regex = emojiRegex();
 module.exports = {
     name: "messageReactionRemove",
     async execute(reaction, user, bot) {
+        const guild = bot.guilds.cache.get(reaction.message.guildId)
         await bot.db.query(`SELECT * FROM rolereact WHERE guildId = "${reaction.message.guildId}" AND messageId = "${reaction.message.id}"`, async (err, req) => {
             if(req.length < 1) return
-            if(reaction.emoji.id == req[0].emoji && reaction.message.channelId == req[0].channelId) {
+            req.forEach(r => { 
+                const emoji = guild.emojis.cache.get(Discord.parseEmoji(r.emoji).id)?.name || regex.test(r.emoji) ? r.emoji : "quoicouhd"
+                if(reaction.emoji.name == emoji && reaction.message.channelId == r.channelId) {
                 const member = bot.guilds.cache.get(reaction.message.guildId).members.cache.get(user.id)
                 if(member) {
                     member.roles.remove(req[0].roleId)
                 }
             }
         })
+    })
     }
 }
