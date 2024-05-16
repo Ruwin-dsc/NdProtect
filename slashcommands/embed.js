@@ -33,7 +33,7 @@ module.exports = {
             .setTimestamp()
         	.setColor("White")
 
-        const embedtest = new Discord.EmbedBuilder()
+        let embedtest = new Discord.EmbedBuilder()
             .setDescription("Description par défaut")
 
         const select = new Discord.StringSelectMenuBuilder()
