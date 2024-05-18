@@ -3,7 +3,7 @@ const Discord = require('discord.js')
 module.exports = {
   name: "presenceUpdate",
   async execute(oldPresence, newPresence, bot) {
-    if(newPresence.guild) return
+    if(!newPresence.guild) return
     bot.db.query(`SELECT * FROM utilitaire WHERE guildId = "${newPresence.guild.id}"`, async (err, req) => {
         if(req.length < 1 || req[0].statutrole == "off") return
         if (!newPresence.guild || !newPresence.member) return;
